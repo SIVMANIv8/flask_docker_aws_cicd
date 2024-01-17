@@ -1,0 +1,20 @@
+name: Flask Docker AWS 
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+      - uses: actions/checkout@v3
+        with:
+          python-version: "3.7.1"
+
+      - name: Install dependency
+        run: pip install -r requiments.txt
+
+      - name: Running unit testcases
+        run: pytest
