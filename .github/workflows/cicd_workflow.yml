@@ -3,8 +3,6 @@ name: Flask Docker AWS
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
 
 jobs:
   test:
@@ -26,6 +24,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      
+      - name: Create working dir
+        working-directory: /docker_aws_cicd
+        run: cp . /docker_aws_cicd
 
       - name: Running unit testcases
         run: pytest
