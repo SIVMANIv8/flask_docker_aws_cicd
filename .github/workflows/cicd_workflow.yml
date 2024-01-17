@@ -53,6 +53,9 @@ jobs:
     needs: build
     runs-on: [aws_ec2]
     steps:
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        
       - name: Pull image from docker hub
         run: docker pull sivamaniv8/flask_docker_aws_cicd:latest
 
