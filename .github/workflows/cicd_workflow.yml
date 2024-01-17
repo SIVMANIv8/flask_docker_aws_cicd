@@ -2,23 +2,28 @@ name: Flask Docker AWS
 
 on:
   push:
-    branches: ["main"]
+    branches: "main"
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+
+    stratergy:
+      matrix:
+        python-version: [3.7.1]
+
     steps:
-      - name: Checkout code
       - uses: actions/checkout@v3
-      - name: Setup Python
-        uses: actions/setup-python@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.7.1"
+          python-version: ${{matrix.python-version}}
 
       - name: Install dependency
         run: |
           python -m pip install --upgrade pip
-          pip install -r requiments.txt
+          pip install -r requirements.txt
 
       - name: Running unit testcases
         run: pytest
