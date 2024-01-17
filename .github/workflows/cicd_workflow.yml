@@ -32,3 +32,15 @@ jobs:
 
       - name: Running unit testcases
         run: pytest
+
+  build:
+    needs: test
+    steps:
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build docker image
+        run: docker build -t  deployment-flask/flask_docker_aws_cicd .
+
+      - name: Publish docker image to docker hub
+        run: docker push deployment-flask/flask_docker_aws_cicd:latest
