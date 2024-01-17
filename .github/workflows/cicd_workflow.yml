@@ -23,8 +23,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Set working directory and Checkout repository
+      - name: Set working directory
         working-directory: ./docker_aws_cicd
+        run: cd ./docker_aws_cicd
+
+      - name: Checkout repository
         uses: actions/checkout@v3       
 
       - name: Running unit testcases
