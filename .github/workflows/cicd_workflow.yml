@@ -26,8 +26,7 @@ jobs:
           pip install -r requirements.txt
       
       - name: Create working dir
-        working-directory: /docker_aws_cicd
-        run: cp . /docker_aws_cicd
+        run: mkdir docker_aws_cicd && cp -R . /docker_aws_cicd && cd docker_aws_cicd
 
       - name: Running unit testcases
         run: pytest
