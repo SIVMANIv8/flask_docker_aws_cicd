@@ -54,11 +54,11 @@ jobs:
     runs-on: [aws_ec2]
     steps:
       - name: Pull image from docker hub
-      - run: docker pull sivamaniv8/flask_docker_aws_cicd:latest
+        run: docker pull sivamaniv8/flask_docker_aws_cicd:latest
 
       - name: Delete existing container
-      - run: docker rm -f flask_docker_aws_cicd_container
+        run: docker rm -f flask_docker_aws_cicd_container
 
       - name: Run docker container
-      - run: docker run -d -p 7000:7000 --name flask_docker_aws_cicd_container sivamaniv8/flask_docker_aws_cicd
+        run: docker run -d -p 7000:7000 --name flask_docker_aws_cicd_container sivamaniv8/flask_docker_aws_cicd
     
