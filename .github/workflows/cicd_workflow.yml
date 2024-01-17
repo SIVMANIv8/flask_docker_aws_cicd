@@ -18,9 +18,9 @@ jobs:
         with:
           python-version: ${{matrix.python-version}}
 
-      - name: Set working directory
-        working-directory: ./docker_aws_cicd
-        run: cd ./docker_aws_cicd
+      #- name: Set working directory
+      #  working-directory: ./docker_aws_cicd
+      #  run: cd ./docker_aws_cicd
 
       - name: Checkout repository
         uses: actions/checkout@v3
