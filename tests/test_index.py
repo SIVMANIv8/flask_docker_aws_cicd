@@ -1,4 +1,4 @@
-from docker_aws_cicd.app import app
+from flask_docker_aws_cicd.app import app
 import json
 
 def test_index_route():
