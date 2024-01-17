@@ -21,7 +21,7 @@ def requirements():
      rsp = app.response_class(
          response = json.dumps(req_dct),
          mimetype = 'application/json',
-         status = 404
+         status = 200
      )
      return rsp
 
