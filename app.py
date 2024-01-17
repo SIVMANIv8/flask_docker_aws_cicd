@@ -8,7 +8,7 @@ def index():
     env = app.config['env']
     #response.status_code = 404
     #return make_response('',404)
-    return f"<h2>Helo Flask + Docker from <i>{env}</i> server<h2>"
+    return f"<h2>Learning of CI CD pipeline with Flask + Pytest + Docker + Github workflow </h2><p><strong>Env: </strong><i>{env}</i> server </p>"
 
 @app.route('/requirements', methods=['GET'])
 def requirements():
