@@ -1,4 +1,4 @@
-dock_cicd/
+dev_sdk/
 __pycache__/
 .pytest_cache/
 tests/.pytest_cache
