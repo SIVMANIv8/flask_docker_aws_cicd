@@ -50,6 +50,7 @@ jobs:
         run: docker push sivamaniv8/flask_docker_aws_cicd:latest
 
   deploy:
+    if: "!contains(github.event.commits[0].message, '[skip ci]')"
     needs: build
     runs-on: [aws_ec2]
     steps:
