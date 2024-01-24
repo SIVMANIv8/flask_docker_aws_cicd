@@ -54,7 +54,7 @@ jobs:
     needs: build
     runs-on: [aws_ec2]
     steps:
-      - name: Login to docker hub
+      - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         
       - name: Pull image from docker hub
