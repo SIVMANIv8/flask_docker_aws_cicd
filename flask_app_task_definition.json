@@ -1,13 +1,13 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:598958358693:task-definition/flask_app:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:598958358693:task-definition/flask_app:4",
     "containerDefinitions": [
         {
-            "name": "flask_docker_aws_cicd",
-            "image": "598958358693.dkr.ecr.us-east-1.amazonaws.com/flask_docker_aws_cicd:latest",
+            "name": "flask_container_1",
+            "image": "598958358693.dkr.ecr.us-east-1.amazonaws.com/flask_app_1",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "flask_docker_aws_cicd-7000-tcp",
+                    "name": "flask_container_1-7000-tcp",
                     "containerPort": 7000,
                     "hostPort": 7000,
                     "protocol": "tcp",
@@ -36,7 +36,7 @@
     "taskRoleArn": "arn:aws:iam::598958358693:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::598958358693:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 4,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -82,7 +82,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-01-24T04:54:44.451Z",
+    "registeredAt": "2024-01-27T15:18:27.006Z",
     "registeredBy": "arn:aws:iam::598958358693:root",
     "tags": []
 }
