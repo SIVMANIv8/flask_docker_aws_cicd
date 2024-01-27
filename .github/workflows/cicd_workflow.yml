@@ -32,46 +32,9 @@ jobs:
 
       - name: Running unit testcases
         run: pytest
-
-  build:
-    if: ${{ !contains(github.event.head_commit.message, '#ecs') }}
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Login to docker hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Build docker image
-        run: docker build -t  sivamaniv8/flask_docker_aws_cicd .
-
-      - name: Publish docker image to docker hub
-        run: docker push sivamaniv8/flask_docker_aws_cicd:latest
-
-  deploy_docker_hub:
-    #if: "!contains(github.event.commits[0].message, '[skip ci]')"
-    if: ${{ !contains(github.event.head_commit.message, '#ecs') }}
-    needs: build
-    runs-on: [aws_ec2]
-    steps:
-      - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         
-      - name: Pull image from docker hub
-        run: docker pull sivamaniv8/flask_docker_aws_cicd:latest
-
-      - name: Delete existing container
-        run: docker rm -f flask_docker_aws_cicd_container
-
-      - name: Run docker container
-        run: docker run -d -p 7000:7000 --name flask_docker_aws_cicd_container sivamaniv8/flask_docker_aws_cicd
-        
-  deploy_ecs:
-    runs-on: [ ubuntu-latest ]
-    steps:
       - name: Configure AWS credentials
+        if: ${{ contains(github.event.head_commit.message, '#ecs') }}
         uses: aws-actions/configure-aws-credentials@v3
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -110,5 +73,41 @@ jobs:
           service: flask_app_service
           cluster: cicd_cluster
           wait-for-service-stability: true
+
+  build:
+    if: ${{ !contains(github.event.head_commit.message, '#ecs') }}
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build docker image
+        run: docker build -t  sivamaniv8/flask_docker_aws_cicd .
+
+      - name: Publish docker image to docker hub
+        run: docker push sivamaniv8/flask_docker_aws_cicd:latest
+
+  deploy_docker_hub:
+    #if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    if: ${{ !contains(github.event.head_commit.message, '#ecs') }}
+    needs: build
+    runs-on: [aws_ec2]
+    steps:
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        
+      - name: Pull image from docker hub
+        run: docker pull sivamaniv8/flask_docker_aws_cicd:latest
+
+      - name: Delete existing container
+        run: docker rm -f flask_docker_aws_cicd_container
+
+      - name: Run docker container
+        run: docker run -d -p 7000:7000 --name flask_docker_aws_cicd_container sivamaniv8/flask_docker_aws_cicd
+      
   
     
