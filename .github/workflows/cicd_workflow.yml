@@ -54,7 +54,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-amazon-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
-          REPOSITORY: flask_web_app
+          REPOSITORY: flask_app_repository
         run: |
           docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -66,7 +66,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: flask_app_task_definition.json
-          container-name: flask_web_app_container
+          container-name: flask_app_repository
           image: ${{ steps.build-image.outputs.image }}
           
       - name: Deploy Amazon ECS task definition
@@ -74,8 +74,8 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: flask_web_apps
-          cluster: python-app
+          service: flask_app_service
+          cluster: flask_app_cluster
           wait-for-service-stability: true
 
   build:
