@@ -75,7 +75,7 @@ jobs:
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: python_web_apps
-          cluster: python_app
+          cluster: python-app
           wait-for-service-stability: true
 
   build:
