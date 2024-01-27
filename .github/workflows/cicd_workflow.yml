@@ -48,7 +48,7 @@ jobs:
         with:
           mask-password: 'true'
 
-      - name: Build tag and push image to Amazon ECR
+      - name: Build tag and push image to Amazon ECR.
         if: ${{ contains(github.event.head_commit.message, '#ecs') }}
         id: build-image
         env:
