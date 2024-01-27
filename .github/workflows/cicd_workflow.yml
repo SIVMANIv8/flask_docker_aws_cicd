@@ -34,6 +34,7 @@ jobs:
         run: pytest
 
   build:
+    if: ${{ !contains(github.event.head_commit.message, '#ecs') }}
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -68,7 +69,6 @@ jobs:
         run: docker run -d -p 7000:7000 --name flask_docker_aws_cicd_container sivamaniv8/flask_docker_aws_cicd
         
   deploy_ecs:
-    needs: build
     runs-on: [ ubuntu-latest ]
     steps:
       - name: Configure AWS credentials
