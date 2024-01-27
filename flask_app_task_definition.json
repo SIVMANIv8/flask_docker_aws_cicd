@@ -1,15 +1,15 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:598958358693:task-definition/flask_app:4",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:598958358693:task-definition/flask_gunicorn_app:1",
     "containerDefinitions": [
         {
-            "name": "flask_container_1",
-            "image": "598958358693.dkr.ecr.us-east-1.amazonaws.com/flask_app_1",
+            "name": "flask_web_app_container",
+            "image": "public.ecr.aws/d9n9h9w3/flask_web_app:latest",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "flask_container_1-7000-tcp",
-                    "containerPort": 7000,
-                    "hostPort": 7000,
+                    "name": "flask_web_app_container-1000-tcp",
+                    "containerPort": 1000,
+                    "hostPort": 1000,
                     "protocol": "tcp",
                     "appProtocol": "http"
                 }
@@ -24,7 +24,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/flask_app",
+                    "awslogs-group": "/ecs/flask_gunicorn_app",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
                 },
@@ -32,11 +32,11 @@
             }
         }
     ],
-    "family": "flask_app",
+    "family": "flask_gunicorn_app",
     "taskRoleArn": "arn:aws:iam::598958358693:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::598958358693:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 4,
+    "revision": 1,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -47,16 +47,10 @@
             "name": "ecs.capability.execution-role-awslogs"
         },
         {
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
-        },
-        {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
         },
         {
             "name": "com.amazonaws.ecs.capability.task-iam-role"
-        },
-        {
-            "name": "ecs.capability.execution-role-ecr-pull"
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
@@ -82,7 +76,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-01-27T15:18:27.006Z",
+    "registeredAt": "2024-01-27T16:02:16.404Z",
     "registeredBy": "arn:aws:iam::598958358693:root",
     "tags": []
 }
